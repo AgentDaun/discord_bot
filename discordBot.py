@@ -52,13 +52,14 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print('------')
-    onlineChannel = bot.get_channel(594983928679628814)
-    worldRankChannel = bot.get_channel(594984209907449908)
-    while True:
-        info = scrapping()
-        await onlineChannel.edit(name="{}{}".format(TEXT_ON_ONLINE_CHANNEL, info['count']))
-        await worldRankChannel.edit(name="{}{}".format(TEXT_ON_WORLD_RANK_CHANNEL, info['rank']))
-        asyncio.sleep(2)
+    
+    # onlineChannel = bot.get_channel(594983928679628814)
+    # worldRankChannel = bot.get_channel(594984209907449908)
+    # while True:
+    #     info = scrapping()
+    #     await onlineChannel.edit(name="{}{}".format(TEXT_ON_ONLINE_CHANNEL, info['count']))
+    #     await worldRankChannel.edit(name="{}{}".format(TEXT_ON_WORLD_RANK_CHANNEL, info['rank']))
+    #     await asyncio.sleep(2)
 
 
 @bot.command()
