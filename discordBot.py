@@ -2,7 +2,7 @@
 from discord.ext import commands
 from bs4 import BeautifulSoup
 import requests
-
+import asyncio
 description = '''not used yet'''
 
 # ``` - Эти палочки нужны для стиля текста
@@ -15,12 +15,16 @@ SETTINGS_TEXT = '```65 слота | На сервере могут играть 
 HELP_TEXT = '```$online - Информация о сервереnn\n$settings - Настройки сервера```'
 
 # Знак перед каждой командой
-
 COMMAND_PREFIX = "$"
 
 # Токен для бота, можешь поменять его/получить на https://discordapp.com/developers/applications/590070691634741258/bots
+BOT_TOKEN = "NTkwMDcwNjkxNjM0NzQxMjU4.XRkZDw.DSB0RidI-Za2zcgoSAXSqba0w04"
 
-BOT_TOKEN = "NTkwMDcwNjkxNjM0NzQxMjU4.XQeylA.HOh2wmoiJDvHwybZ0oGSfwPR408"
+# Название канала, показывающий онлайн на сервере. В {} подставляется сам онлайн.
+TEXT_ON_ONLINE_CHANNEL = "Сейчас в игре: {}"
+
+# Название канала, показывающий мировой ранг сервера. В {} подставляется сам онлайн.
+TEXT_ON_WORLD_RANK_CHANNEL = "Мировой ранг: {}"
 
 bot = commands.Bot(command_prefix=COMMAND_PREFIX, description=description)
 bot.remove_command('help')
@@ -48,6 +52,13 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print('------')
+    onlineChannel = bot.get_channel(594983928679628814)
+    worldRankChannel = bot.get_channel(594984209907449908)
+    while True:
+        info = scrapping()
+        await onlineChannel.edit(name="{}{}".format(TEXT_ON_ONLINE_CHANNEL, info['count']))
+        await worldRankChannel.edit(name="{}{}".format(TEXT_ON_WORLD_RANK_CHANNEL, info['rank']))
+        asyncio.sleep(2)
 
 
 @bot.command()
@@ -64,6 +75,7 @@ async def settings(ctx):
 @bot.command()
 async def help(ctx):
     await ctx.send(HELP_TEXT)
+
 
 if __name__ == '__main__':
     bot.run(BOT_TOKEN)
