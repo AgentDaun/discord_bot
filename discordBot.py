@@ -20,11 +20,11 @@ COMMAND_PREFIX = "$"
 # Токен для бота, можешь поменять его/получить на https://discordapp.com/developers/applications/590070691634741258/bots
 BOT_TOKEN = "NTkwMDcwNjkxNjM0NzQxMjU4.XRkZDw.DSB0RidI-Za2zcgoSAXSqba0w04"
 
-# Название канала, показывающий онлайн на сервере. В {} подставляется сам онлайн.
-TEXT_ON_ONLINE_CHANNEL = "Сейчас в игре: {}"
+# Название канала, показывающий онлайн на сервере. В конце подставляется сам онлайн.
+TEXT_ON_ONLINE_CHANNEL = "Сейчас в игре: "
 
-# Название канала, показывающий мировой ранг сервера. В {} подставляется сам онлайн.
-TEXT_ON_WORLD_RANK_CHANNEL = "Мировой ранг: {}"
+# Название канала, показывающий мировой ранг сервера. В конце подставляется сам онлайн.
+TEXT_ON_WORLD_RANK_CHANNEL = "Мировой ранг: "
 
 bot = commands.Bot(command_prefix=COMMAND_PREFIX, description=description)
 bot.remove_command('help')
