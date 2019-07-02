@@ -61,7 +61,8 @@ async def on_ready():
             await onlineChannel.edit(name="{}{}".format(TEXT_ON_ONLINE_CHANNEL, info['count']))
             await worldRankChannel.edit(name="{}{}".format(TEXT_ON_WORLD_RANK_CHANNEL, info['rank']))
             await asyncio.sleep(5)
-        except:
+        except Exception as e:
+            print(e)
             await asyncio.sleep(5)
             continue
 
@@ -70,7 +71,8 @@ async def on_ready():
 async def online(ctx):
     try:
         info = scrapping()
-    except:
+    except Exception as e:
+        print(e)
         await ctx.send('Информация временно отсуствует, пожалуйста, попробуйте позже')
         await asyncio.sleep(5)
         return
