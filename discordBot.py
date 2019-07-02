@@ -63,6 +63,7 @@ async def on_ready():
             await asyncio.sleep(5)
         except Exception as e:
             print(e)
+            print('FOREVER LOOP FOR CHANNEL')
             await asyncio.sleep(5)
             continue
 
@@ -72,9 +73,10 @@ async def online(ctx):
     try:
         info = scrapping()
     except Exception as e:
-        print(e)
         await ctx.send('```Информация временно отсуствует, пожалуйста, попробуйте позже```')
         await asyncio.sleep(5)
+        print(e)
+        print('$ONLINE COMMAND')
         return
     await ctx.send("```IP адресс: {}\nИгроков: {}\nМировой ранг: {}\nСтатус: {}\nПерезагрузки: 00/04/08/12/16/20:00 UTC+3:00```".format(info['address'], info['count'], info['rank'], info['status']))
 
