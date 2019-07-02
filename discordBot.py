@@ -73,7 +73,7 @@ async def online(ctx):
         info = scrapping()
     except Exception as e:
         print(e)
-        await ctx.send('Информация временно отсуствует, пожалуйста, попробуйте позже')
+        await ctx.send('```Информация временно отсуствует, пожалуйста, попробуйте позже```')
         await asyncio.sleep(5)
         return
     await ctx.send("```IP адресс: {}\nИгроков: {}\nМировой ранг: {}\nСтатус: {}\nПерезагрузки: 00/04/08/12/16/20:00 UTC+3:00```".format(info['address'], info['count'], info['rank'], info['status']))
