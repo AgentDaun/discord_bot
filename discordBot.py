@@ -17,7 +17,7 @@ HELP_TEXT = '```$online - Информация о сервереnn\n$settings - 
 COMMAND_PREFIX = "$"
 
 # Токен для бота, можешь поменять его/получить на https://discordapp.com/developers/applications/590070691634741258/bots
-BOT_TOKEN = "NTk1ODczMTk4NzM5MDMwMDI2.XUnrLg.3Pikwpg3WLpmMkxl_Xz_L8O1K_A"
+BOT_TOKEN = "NTk1ODk2NjMxODk1Nzg1NTI1.XUnv4Q.Hd2o1sNgJNH5ubvHupkm92JOpek"
 
 # Название канала, показывающий онлайн на сервере. В конце подставляется сам онлайн.
 TEXT_ON_ONLINE_CHANNEL = "Сейчас в игре: "
@@ -39,15 +39,11 @@ async def on_ready():
     onlineChannel = bot.get_channel(595878933652701204)
     worldRankChannel = bot.get_channel(595878994969231363)
     while True:
-        try:
-            info = get_server_info()['attributes']
-            online = info['players']
-            rank = info['rank']
-            await onlineChannel.edit(name="{}{}".format(TEXT_ON_ONLINE_CHANNEL, online))
-            await worldRankChannel.edit(name="{}{}".format(TEXT_ON_WORLD_RANK_CHANNEL, rank))
-        except Exception as e:
-            print(e)
-            continue
+        info = get_server_info()['attributes']
+        online = info['players']
+        rank = info['rank']
+        await onlineChannel.edit(name="{}{}".format(TEXT_ON_ONLINE_CHANNEL, online))
+        await worldRankChannel.edit(name="{}{}".format(TEXT_ON_WORLD_RANK_CHANNEL, rank))
 
 
 @bot.command()
