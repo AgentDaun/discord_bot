@@ -36,8 +36,8 @@ async def on_ready():
     print(bot.user.id)
     print('------')
 
-    onlineChannel = bot.get_channel(594983928679628814)
-    worldRankChannel = bot.get_channel(594984209907449908)
+    onlineChannel = bot.get_channel(595878933652701204)
+    worldRankChannel = bot.get_channel(595878994969231363)
     while True:
         try:
             info = get_server_info()['attributes']
