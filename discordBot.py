@@ -43,8 +43,8 @@ async def on_ready():
             info = get_server_info()['attributes']
             online = info['players']
             rank = info['rank']
-            await onlineChannel.edit(name=f"{TEXT_ON_ONLINE_CHANNEL}{online}")
-            await worldRankChannel.edit(name=f"{TEXT_ON_WORLD_RANK_CHANNEL}{rank}")
+            await onlineChannel.edit(name="{}{}".format(TEXT_ON_ONLINE_CHANNEL, online))
+            await worldRankChannel.edit(name="{}{}".format(TEXT_ON_WORLD_RANK_CHANNEL, rank))
         except Exception as e:
             print(e)
             continue
@@ -65,7 +65,7 @@ async def online(ctx):
     max_online = info['maxPlayers']
     rank = info['rank']
     status = info['status']
-    await message.edit(content=f"```IP адресс: {ip}\nИгроков: {online}/{max_online}\nМировой ранг: {rank}\nСтатус: {status}\nПерезагрузки: 00/04/08/12/16/20:00 UTC+3:00```")
+    await message.edit(content="```IP адресс: {}\nИгроков: {}/{}\nМировой ранг: {}\nСтатус: {}\nПерезагрузки: 00/04/08/12/16/20:00 UTC+3:00```".format(ip, online, max_online, rank, status))
 
 
 @bot.command()
