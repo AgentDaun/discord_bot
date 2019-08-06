@@ -17,7 +17,7 @@ HELP_TEXT = '```$online - Информация о сервереnn\n$settings - 
 COMMAND_PREFIX = "$"
 
 # Токен для бота, можешь поменять его/получить на https://discordapp.com/developers/applications/590070691634741258/bots
-BOT_TOKEN = "NTk1ODk2NjMxODk1Nzg1NTI1.XUnv4Q.Hd2o1sNgJNH5ubvHupkm92JOpek"
+BOT_TOKEN = "NTk1ODczMTk4NzM5MDMwMDI2.XUnvkA.h5r27mGUDBiOAr5XDi9iAmDHvmM"
 
 # Название канала, показывающий онлайн на сервере. В конце подставляется сам онлайн.
 TEXT_ON_ONLINE_CHANNEL = "Сейчас в игре: "
