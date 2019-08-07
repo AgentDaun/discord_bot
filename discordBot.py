@@ -44,6 +44,7 @@ async def on_ready():
         rank = info['rank']
         await onlineChannel.edit(name="{}{}".format(TEXT_ON_ONLINE_CHANNEL, online))
         await worldRankChannel.edit(name="{}{}".format(TEXT_ON_WORLD_RANK_CHANNEL, rank))
+        await asyncio.sleep(5)
 
 
 @bot.command()
