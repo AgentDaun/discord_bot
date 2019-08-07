@@ -42,9 +42,10 @@ async def on_ready():
         try:
             info = get_server_info()['attributes']
             online = info['players']
+            max_online = info['maxPlayers']
             rank = info['rank']
-            await onlineChannel.edit(name="{}{}".format(TEXT_ON_ONLINE_CHANNEL, online))
-            await worldRankChannel.edit(name="{}{}".format(TEXT_ON_WORLD_RANK_CHANNEL, rank))
+            await onlineChannel.edit(name="{}{}/{}".format(TEXT_ON_ONLINE_CHANNEL, online, max_online))
+            await worldRankChannel.edit(name="{}#{}".format(TEXT_ON_WORLD_RANK_CHANNEL, rank))
             await asyncio.sleep(5)
         except Exception as e:
             print(e)
