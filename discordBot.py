@@ -51,32 +51,32 @@ async def on_ready():
             print(e)
             await asyncio.sleep(60)
 
-@bot.command()
-async def online(ctx):
-    try:
-        message = await ctx.send("Обрабатываю вызов..")
-        info = get_server_info()['attributes']
-    except Exception as e:
-        print(e)
-        await ctx.send('```Что-то пошло не так. Попробуй через 5 секунд.```')
-        await asyncio.sleep(5)
-        return
-    ip = info['ip']
-    online = info['players']
-    max_online = info['maxPlayers']
-    rank = info['rank']
-    status = info['status']
-    await message.edit(content="```IP адресс: {}\nИгроков: {}/{}\nМировой ранг: {}\nСтатус: {}\nПерезагрузки: 00/04/08/12/16/20:00 UTC+3:00```".format(ip, online, max_online, rank, status))
+# @bot.command()
+# async def online(ctx):
+#     try:
+#         message = await ctx.send("Обрабатываю вызов..")
+#         info = get_server_info()['attributes']
+#     except Exception as e:
+#         print(e)
+#         await ctx.send('```Что-то пошло не так. Попробуй через 5 секунд.```')
+#         await asyncio.sleep(5)
+#         return
+#     ip = info['ip']
+#     online = info['players']
+#     max_online = info['maxPlayers']
+#     rank = info['rank']
+#     status = info['status']
+#     await message.edit(content="```IP адресс: {}\nИгроков: {}/{}\nМировой ранг: {}\nСтатус: {}\nПерезагрузки: 00/04/08/12/16/20:00 UTC+3:00```".format(ip, online, max_online, rank, status))
 
 
-@bot.command()
-async def settings(ctx):
-    await ctx.send(SETTINGS_TEXT)
+# @bot.command()
+# async def settings(ctx):
+#     await ctx.send(SETTINGS_TEXT)
 
 
-@bot.command()
-async def help(ctx):
-    await ctx.send(HELP_TEXT)
+# @bot.command()
+# async def help(ctx):
+#     await ctx.send(HELP_TEXT)
 
 
 if __name__ == '__main__':
