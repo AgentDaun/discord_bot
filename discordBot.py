@@ -39,13 +39,16 @@ async def on_ready():
     onlineChannel = bot.get_channel(595878933652701204)
     worldRankChannel = bot.get_channel(595878994969231363)
     while True:
-        info = get_server_info()['attributes']
-        online = info['players']
-        rank = info['rank']
-        await onlineChannel.edit(name="{}{}".format(TEXT_ON_ONLINE_CHANNEL, online))
-        await worldRankChannel.edit(name="{}{}".format(TEXT_ON_WORLD_RANK_CHANNEL, rank))
-        await asyncio.sleep(5)
-
+        try:
+            info = get_server_info()['attributes']
+            online = info['players']
+            rank = info['rank']
+            await onlineChannel.edit(name="{}{}".format(TEXT_ON_ONLINE_CHANNEL, online))
+            await worldRankChannel.edit(name="{}{}".format(TEXT_ON_WORLD_RANK_CHANNEL, rank))
+            await asyncio.sleep(5)
+        except Exception as e:
+            print(e)
+            await asyncio.sleep(60)
 
 @bot.command()
 async def online(ctx):
