@@ -51,7 +51,8 @@ bot = commands.Bot(command_prefix=COMMAND_PREFIX, description=description)
 bot.remove_command('help')
 
 async def check_new_messages():
-    onlineChannel = bot.get_channel(595899795550371840)
+    chat_messages_channel = bot.get_channel(617040424846229504)
+    kill_messages_channel = bot.get_channel(617040494593179840)
     try:
         messages, result = await read_logs()
         if result:
@@ -65,7 +66,7 @@ async def check_new_messages():
                         author = message['author']
                         date = message['date']
                         ready_message = create_chat_message_template(text=text, author=author, date=date)
-                        await onlineChannel.send(embed=ready_message)
+                        await chat_messages_channel.send(embed=ready_message)
             if kill_msgs:
                 # print(kill_msgs)
                 for message_raw in kill_msgs:
@@ -82,7 +83,7 @@ async def check_new_messages():
                                                                     killed=killed,
                                                                     killed_loc=killed_loc,
                                                                     date=date)
-                        await onlineChannel.send(embed=ready_message)
+                        await kill_messages_channel.send(embed=ready_message)
         return True
     except Exception as e:
         print(sys._getframe().f_code.co_name + " @ Caught exception").center(50) + '\n' + (str(e).decode('utf8') + '. line: ' + str(sys.exc_info()[2].tb_lineno)).center(50)
@@ -97,10 +98,10 @@ async def on_ready():
     print(bot.user.id)
     print('------')
 
-    # onlineChannel = bot.get_channel(595878933652701204)
-    # worldRankChannel = bot.get_channel(595878994969231363)
-    onlineChannel = bot.get_channel(595899795550371840)
-    worldRankChannel = bot.get_channel(595899869898473472)
+    onlineChannel = bot.get_channel(595878933652701204)
+    worldRankChannel = bot.get_channel(595878994969231363)
+    # onlineChannel = bot.get_channel(595899795550371840)595878933652701204
+    # worldRankChannel = bot.get_channel(595899869898473472)
     while True:
         try:
             info = get_server_info()['attributes']
