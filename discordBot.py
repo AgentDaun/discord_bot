@@ -100,7 +100,7 @@ async def on_ready():
 
     onlineChannel = bot.get_channel(595878933652701204)
     worldRankChannel = bot.get_channel(595878994969231363)
-    # onlineChannel = bot.get_channel(595899795550371840)595878933652701204
+    # onlineChannel = bot.get_channel(595899795550371840)
     # worldRankChannel = bot.get_channel(595899869898473472)
     while True:
         try:
