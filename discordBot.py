@@ -104,7 +104,8 @@ async def on_ready():
     # worldRankChannel = bot.get_channel(595899869898473472)
     while True:
         try:
-            info = get_server_info()['attributes']
+            info = get_server_info()
+            online = info['players']
             max_online = info['maxPlayers']
             rank = info['rank']
             await onlineChannel.edit(name="{}{}/{}".format(TEXT_ON_ONLINE_CHANNEL, online, max_online))
