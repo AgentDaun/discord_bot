@@ -103,16 +103,13 @@ async def on_ready():
     # onlineChannel = bot.get_channel(595899795550371840)
     # worldRankChannel = bot.get_channel(595899869898473472)
     while True:
-        try:
-            info = get_server_info()
-            online = info['players']
-            max_online = info['maxPlayers']
-            rank = info['rank']
-            await onlineChannel.edit(name="{}{}/{}".format(TEXT_ON_ONLINE_CHANNEL, online, max_online))
-            await worldRankChannel.edit(name="{}#{}".format(TEXT_ON_WORLD_RANK_CHANNEL, rank))
-        except Exception as e:
-            print(e)
-            await asyncio.sleep(60)
+        info = get_server_info()
+        online = info['players']
+        max_online = info['maxPlayers']
+        rank = info['rank']
+        await onlineChannel.edit(name="{}{}/{}".format(TEXT_ON_ONLINE_CHANNEL, online, max_online))
+        await worldRankChannel.edit(name="{}#{}".format(TEXT_ON_WORLD_RANK_CHANNEL, rank))
+        print("ASD")
         try:
             await check_new_messages()
         except:
