@@ -103,13 +103,12 @@ async def on_ready():
     # onlineChannel = bot.get_channel(595899795550371840)
     # worldRankChannel = bot.get_channel(595899869898473472)
     while True:
-        info = get_server_info()
+        info = get_server_info()['attributes']
         online = info['players']
         max_online = info['maxPlayers']
         rank = info['rank']
         await onlineChannel.edit(name="{}{}/{}".format(TEXT_ON_ONLINE_CHANNEL, online, max_online))
         await worldRankChannel.edit(name="{}#{}".format(TEXT_ON_WORLD_RANK_CHANNEL, rank))
-        print("ASD")
         try:
             await check_new_messages()
         except:
