@@ -74,7 +74,7 @@ async def check_new_messages():
                 for message_raw in kill_msgs:
                     message = kill_message_parse(message_raw)
                     if message:
-                        if not message['kill_sector']:
+                        if not message['kill_sector'] and message['chat_type'] != "Local":
 
                             killed = message['killed']
                             killer = message['killer']
@@ -83,18 +83,19 @@ async def check_new_messages():
                             ready_message = create_kill_message_template(date=date,
                                                                          killer=killer,
                                                                          killed=killed)
-                        date = message['date']
-                        killer = message['killer']
-                        killed = message['killed']
-                        kill_sector = message['kill_sector']
-                        kill_distance = message['kill_distance']
+                        if not message["is_event_kill"]:
+                            date = message['date']
+                            killer = message['killer']
+                            killed = message['killed']
+                            kill_sector = message['kill_sector']
+                            kill_distance = message['kill_distance']
 
-                        ready_message = create_kill_message_template(date=date,
-                                                                     killer=killer,
-                                                                     killed=killed,
-                                                                     kill_sector=kill_sector,
-                                                                     kill_distance=kill_distance)
-                        await kill_messages_channel.send(embed=ready_message)
+                            ready_message = create_kill_message_template(date=date,
+                                                                        killer=killer,
+                                                                        killed=killed,
+                                                                        kill_sector=kill_sector,
+                                                                        kill_distance=kill_distance)
+                            await kill_messages_channel.send(embed=ready_message)
         return True
     except Exception:
         print(traceback.format_exc())
