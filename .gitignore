@@ -5,3 +5,6 @@ __pycache__/
 Pipfile
 Pipfile.lock
 scumlogs.ini
+/scumlogs.ini
+*/scumlogs.ini
+*.ini
