@@ -1,5 +1,13 @@
 import traceback
 
+LINE_BETWEEN_D_AND_C = 317244.69772196264
+LINE_BETWEEN_C_AND_B = 12332.777453270974
+LINE_BETWEN_B_AND_A = -292341.8803543614
+BETWEEN_4_3 = 317874.6814641745
+BETWEEN_3_2 = 13261.28348909656
+BETWEEN_2_1 = -291233.1713395638
+
+
 def chat_message_parse(message):
     try:
         is_ok = True
@@ -32,6 +40,34 @@ def chat_message_parse(message):
 
 def strip_all(list_member):
     return list_member.strip()
+
+
+def get_kill_sector(X, Y):
+    if Y >= LINE_BETWEEN_D_AND_C:
+        sector_letter = "D"
+    elif Y >= LINE_BETWEEN_C_AND_B:
+        sector_letter = "C"
+    elif Y >= LINE_BETWEN_B_AND_A:
+        sector_letter = "B"
+    else:
+        sector_letter = "A"
+
+    if X >= BETWEEN_4_3:
+        sector_number = "4"
+    elif X >= BETWEEN_3_2:
+        sector_number = "3"
+    elif X >= BETWEEN_2_1:
+        sector_number = "2"
+    else:
+        sector_number = "1"
+    
+    return {
+        "sector_letter": sector_letter,
+        "sector_number": sector_number 
+    }
+
+
+print(get_kill_sector(-85690.73, 497131.78))
 
 
 def kill_message_parse(message):
