@@ -43,6 +43,7 @@ def strip_all(list_member):
 
 
 def get_kill_sector(X, Y):
+    X, Y = float(X), float(Y)
     if Y >= LINE_BETWEEN_D_AND_C:
         sector_letter = "D"
     elif Y >= LINE_BETWEEN_C_AND_B:
@@ -60,14 +61,11 @@ def get_kill_sector(X, Y):
         sector_number = "2"
     else:
         sector_number = "1"
-    
+
     return {
         "sector_letter": sector_letter,
-        "sector_number": sector_number 
+        "sector_number": sector_number
     }
-
-
-print(get_kill_sector(-85690.73, 497131.78))
 
 
 def kill_message_parse(message):
@@ -75,13 +73,13 @@ def kill_message_parse(message):
         # is_ok == True if in message haveno line with "Game Version"
         if message:
             is_ok = True
-            print(f"Default Message: {message}")
             splited_message = message.split(":")
-            print(f"Splited Message: {splited_message}")
+
             if " Game version" in splited_message:
                 is_ok = False
                 return None
-            if is_ok: 
+
+            if is_ok:
                 date = splited_message[0]
                 killed_killer_loc = splited_message[2]
 
@@ -95,24 +93,33 @@ def kill_message_parse(message):
                 killer_id_starts_from = killer_raw.rfind("(")
                 killer = killer_raw[:killer_id_starts_from].strip()
 
-                killer_loc_raw = splited_message[4] 
+                # if no coords in message
+                if len(splited_message) < 5:
+                    return {
+                        "killer": killer,
+                        "killed": killed,
+                        "date": date
+                    }
+                killer_loc_raw = splited_message[4]
                 killer_loc = killer_loc_raw.split(',')[:3]
-                killer_loc = list(map(strip_all, killer_loc))    
+                killer_loc = list(map(strip_all, killer_loc))
                 killer_loc_result = {
                     "x": killer_loc[0],
                     "y": killer_loc[1],
                     "z": killer_loc[2]
                 }
 
-                killed_loc_raw = splited_message[5] 
+                killed_loc_raw = splited_message[5]
                 killed_loc = killed_loc_raw.split(']')
-                killed_loc = killed_loc[0].split(",")   
-                killed_loc = list(map(strip_all, killed_loc))   
+                killed_loc = killed_loc[0].split(",")
+                killed_loc = list(map(strip_all, killed_loc))
                 killed_loc_result = {
                     "x": killed_loc[0],
                     "y": killed_loc[1],
                     "z": killed_loc[2]
                 }
+
+                kill_sector = get_kill_sector(killer_loc_result['x'], killer_loc_result['y'])
 
                 is_event_kill = "(victim participating in game event)" in message
 
@@ -122,8 +129,13 @@ def kill_message_parse(message):
                     "killed_loc": killed_loc_result,
                     "killer": killer,
                     "killer_loc": killer_loc_result,
-                    "is_event_kill": is_event_kill
+                    "is_event_kill": is_event_kill,
+                    "kill_sector": kill_sector,
                 }
+
     except Exception:
         print(traceback.format_exc())
         return None
+
+asd = kill_message_parse("2019.09.02-18.51.46: Died: Rouge_Baron (76561198017069210), Killer: Мисс в Стрингах (76561198078231208) S[KillerLoc: -598603.25, 339780.56, 69181.25, VictimLoc: -598487.19, 338644.34, 68997.22] C[KillerLoc: -598603.25, 339780.56, 69181.25, VictimLoc: -598475.94, 338592.72, 68986.30]")
+print(asd)

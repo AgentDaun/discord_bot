@@ -35,8 +35,8 @@ HELP_TEXT = '```$online - Информация о сервереnn\n$settings - 
 COMMAND_PREFIX = "$"
 
 # Токен для бота, можешь поменять его/получить на https://discordapp.com/developers/applications/590070691634741258/bots
-BOT_TOKEN = "NTk1ODczMTk4NzM5MDMwMDI2.XWwlEQ.o2tHG88vIQ06OZUtSCbitH3Mhq8"
-# BOT_TOKEN = "NTk1ODk2NjMxODk1Nzg1NTI1.XWkoWA.PT-XdCvq8D5SnrE1lsTSHdLohYc"
+# BOT_TOKEN = "NTk1ODczMTk4NzM5MDMwMDI2.XWwlEQ.o2tHG88vIQ06OZUtSCbitH3Mhq8"
+BOT_TOKEN = "NTk1ODk2NjMxODk1Nzg1NTI1.XWkoWA.PT-XdCvq8D5SnrE1lsTSHdLohYc"
 
 # Название канала, показывающий онлайн на сервере. В конце подставляется сам онлайн.
 TEXT_ON_ONLINE_CHANNEL = "Сейчас в игре: "
@@ -71,18 +71,31 @@ async def check_new_messages():
                 # print(kill_msgs)
                 for message_raw in kill_msgs:
                     message = kill_message_parse(message_raw)
-                    print(message)
                     if message:
-                        date = message['date']
+                        if not message['killed_loc']:
+                            killed = message['killed']
+                            killer = message['killer']
+                            date = message['date']
+
+                            ready_message = create_kill_message_template(
+                                                                         killer=killer,
+                                                                         killed=killed,
+                                                                         date=date)
                         killer = message['killer']
+                        date = message['date']
                         killer_loc = message['killer_loc']
                         killed = message['killed']
                         killed_loc = message['killed_loc']
-                        ready_message = create_kill_message_template(killer=killer,
-                                                                     killer_loc=killer_loc,
+                        kill_sector = message['kill_sector']
+
+                        ready_message = create_kill_message_template(
+                                                                     date=date,
+                                                                     killer=killer,
                                                                      killed=killed,
                                                                      killed_loc=killed_loc,
-                                                                     date=date)
+                                                                     killer_loc=killer_loc,
+                                                                     kill_sector=kill_sector,
+                        )
                         await kill_messages_channel.send(embed=ready_message)
         return True
     except Exception:
