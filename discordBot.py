@@ -62,7 +62,7 @@ async def check_new_messages():
             if chat_msgs:
                 for message_raw in chat_msgs:
                     message = chat_message_parse(message_raw)
-                    if message:
+                    if message and message['chat_type'] != "Local":
                         text = message['text']
                         author = message['author']
                         date = message['date']
@@ -75,7 +75,7 @@ async def check_new_messages():
                 for message_raw in kill_msgs:
                     message = kill_message_parse(message_raw)
                     if message:
-                        if not message['kill_sector'] and message['chat_type'] != "Local":
+                        if not message['kill_sector']:
 
                             killed = message['killed']
                             killer = message['killer']
