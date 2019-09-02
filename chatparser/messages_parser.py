@@ -109,7 +109,15 @@ def kill_message_parse(message):
                 killer_id_starts_from = killer_raw.rfind("(")
                 killer = killer_raw[:killer_id_starts_from].strip()
 
+                is_event_kill = "(victim participating in game event)" in message
                 # if no coords in message
+                if len(splited_message) < 5:
+                    return {
+                        "is_event_kill": is_event_kill,
+                        "killer": killer,
+                        "killed": killed,
+                        "date": date
+                    }
 
                 killer_loc_raw = splited_message[4]
                 killer_loc = killer_loc_raw.split(',')[:3]
@@ -132,16 +140,6 @@ def kill_message_parse(message):
 
                 kill_distance = get_kill_distance(killed_loc_result, killer_loc_result)
                 kill_sector = get_kill_sector(killer_loc_result['x'], killer_loc_result['y'])
-
-                is_event_kill = "(victim participating in game event)" in message
-
-                if len(splited_message) < 5:
-                    return {
-                        "is_event_kill": is_event_kill,
-                        "killer": killer,
-                        "killed": killed,
-                        "date": date
-                    }
 
                 return {
                     "date": date,
