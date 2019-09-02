@@ -152,6 +152,3 @@ def kill_message_parse(message):
     except Exception:
         print(traceback.format_exc())
         return None
-
-asd = kill_message_parse("2019.09.02-18.51.46: Died: Rouge_Baron (76561198017069210), Killer: Мисс в Стрингах (76561198078231208) S[KillerLoc: -598603.25, 339780.56, 69181.25, VictimLoc: -598487.19, 338644.34, 68997.22] C[KillerLoc: -598603.25, 339780.56, 69181.25, VictimLoc: -598475.94, 338592.72, 68986.30]")
-print(asd)

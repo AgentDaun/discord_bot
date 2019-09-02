@@ -35,8 +35,8 @@ HELP_TEXT = '```$online - Информация о сервереnn\n$settings - 
 COMMAND_PREFIX = "$"
 
 # Токен для бота, можешь поменять его/получить на https://discordapp.com/developers/applications/590070691634741258/bots
-BOT_TOKEN = "NTk1ODczMTk4NzM5MDMwMDI2.XWwlEQ.o2tHG88vIQ06OZUtSCbitH3Mhq8"
-# BOT_TOKEN = "NTk1ODk2NjMxODk1Nzg1NTI1.XW1m8w.atM-59720fgOjzYRlNp8CHWWzfc"
+# BOT_TOKEN = "NTk1ODczMTk4NzM5MDMwMDI2.XWwlEQ.o2tHG88vIQ06OZUtSCbitH3Mhq8"
+BOT_TOKEN = "NTk1ODk2NjMxODk1Nzg1NTI1.XW1m8w.atM-59720fgOjzYRlNp8CHWWzfc"
 
 # Название канала, показывающий онлайн на сервере. В конце подставляется сам онлайн.
 TEXT_ON_ONLINE_CHANNEL = "Сейчас в игре: "
@@ -47,10 +47,11 @@ TEXT_ON_WORLD_RANK_CHANNEL = "Мировой ранг: "
 bot = commands.Bot(command_prefix=COMMAND_PREFIX, description=description)
 bot.remove_command('help')
 
+# chat_messages_channel = bot.get_channel(595899795550371840)
+# kill_messages_channel = bot.get_channel(595899869898473472)
+
 
 async def check_new_messages():
-    # chat_messages_channel = bot.get_channel(595899795550371840)
-    # kill_messages_channel = bot.get_channel(595899869898473472)
     chat_messages_channel = bot.get_channel(617040424846229504)
     kill_messages_channel = bot.get_channel(617040494593179840)
     try:
@@ -91,10 +92,10 @@ async def check_new_messages():
                             kill_distance = message['kill_distance']
 
                             ready_message = create_kill_message_template(date=date,
-                                                                        killer=killer,
-                                                                        killed=killed,
-                                                                        kill_sector=kill_sector,
-                                                                        kill_distance=kill_distance)
+                                                                         killer=killer,
+                                                                         killed=killed,
+                                                                         kill_sector=kill_sector,
+                                                                         kill_distance=kill_distance)
                             await kill_messages_channel.send(embed=ready_message)
         return True
     except Exception:
