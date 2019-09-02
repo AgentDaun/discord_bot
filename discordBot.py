@@ -35,8 +35,8 @@ HELP_TEXT = '```$online - Информация о сервереnn\n$settings - 
 COMMAND_PREFIX = "$"
 
 # Токен для бота, можешь поменять его/получить на https://discordapp.com/developers/applications/590070691634741258/bots
-# BOT_TOKEN = "NTk1ODczMTk4NzM5MDMwMDI2.XWwlEQ.o2tHG88vIQ06OZUtSCbitH3Mhq8"
-BOT_TOKEN = "NTk1ODk2NjMxODk1Nzg1NTI1.XWkoWA.PT-XdCvq8D5SnrE1lsTSHdLohYc"
+BOT_TOKEN = "NTk1ODczMTk4NzM5MDMwMDI2.XWwlEQ.o2tHG88vIQ06OZUtSCbitH3Mhq8"
+# BOT_TOKEN = "NTk1ODk2NjMxODk1Nzg1NTI1.XW1m8w.atM-59720fgOjzYRlNp8CHWWzfc"
 
 # Название канала, показывающий онлайн на сервере. В конце подставляется сам онлайн.
 TEXT_ON_ONLINE_CHANNEL = "Сейчас в игре: "
@@ -49,6 +49,8 @@ bot.remove_command('help')
 
 
 async def check_new_messages():
+    # chat_messages_channel = bot.get_channel(595899795550371840)
+    # kill_messages_channel = bot.get_channel(595899869898473472)
     chat_messages_channel = bot.get_channel(617040424846229504)
     kill_messages_channel = bot.get_channel(617040494593179840)
     try:
@@ -72,30 +74,26 @@ async def check_new_messages():
                 for message_raw in kill_msgs:
                     message = kill_message_parse(message_raw)
                     if message:
-                        if not message['killed_loc']:
+                        if not message['kill_sector']:
+
                             killed = message['killed']
                             killer = message['killer']
                             date = message['date']
 
-                            ready_message = create_kill_message_template(
+                            ready_message = create_kill_message_template(date=date,
                                                                          killer=killer,
-                                                                         killed=killed,
-                                                                         date=date)
-                        killer = message['killer']
+                                                                         killed=killed)
                         date = message['date']
-                        killer_loc = message['killer_loc']
+                        killer = message['killer']
                         killed = message['killed']
-                        killed_loc = message['killed_loc']
                         kill_sector = message['kill_sector']
+                        kill_distance = message['kill_distance']
 
-                        ready_message = create_kill_message_template(
-                                                                     date=date,
+                        ready_message = create_kill_message_template(date=date,
                                                                      killer=killer,
                                                                      killed=killed,
-                                                                     killed_loc=killed_loc,
-                                                                     killer_loc=killer_loc,
                                                                      kill_sector=kill_sector,
-                        )
+                                                                     kill_distance=kill_distance)
                         await kill_messages_channel.send(embed=ready_message)
         return True
     except Exception:
@@ -111,10 +109,10 @@ async def on_ready():
     print(bot.user.id)
     print('------')
 
-    onlineChannel = bot.get_channel(595878933652701204)
-    worldRankChannel = bot.get_channel(595878994969231363)
-    # onlineChannel = bot.get_channel(595899795550371840)
-    # worldRankChannel = bot.get_channel(595899869898473472)
+    # onlineChannel = bot.get_channel(595878933652701204)
+    # worldRankChannel = bot.get_channel(595878994969231363)
+    onlineChannel = bot.get_channel(595899795550371840)
+    worldRankChannel = bot.get_channel(595899869898473472)
     while True:
         info = get_server_info()['attributes']
         online = info['players']

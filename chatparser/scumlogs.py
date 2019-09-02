@@ -141,6 +141,6 @@ async def read_logs():
             return [result_chat_lines, result_kill_lines], True
 
         except Exception:
-            print(traceback.format.exc())
+            print(traceback.format_exc())
             return [], False
         await session.close()

@@ -1,4 +1,6 @@
 import traceback
+from math import sqrt
+
 
 LINE_BETWEEN_D_AND_C = 317244.69772196264
 LINE_BETWEEN_C_AND_B = 12332.777453270974
@@ -68,6 +70,20 @@ def get_kill_sector(X, Y):
     }
 
 
+def get_kill_distance(killed_loc, killer_loc):
+    x1 = float(killed_loc['x'])
+    y1 = float(killed_loc['y'])
+    z1 = float(killed_loc['z'])
+
+    x2 = float(killer_loc['x'])
+    y2 = float(killer_loc['y'])
+    z2 = float(killer_loc['z'])
+
+    distance_raw = sqrt((x2-x1)**2+(y2-y1)**2+(z2-z1)**2)
+    distance = round(distance_raw / 100, 2)
+    return distance
+
+
 def kill_message_parse(message):
     try:
         # is_ok == True if in message haveno line with "Game Version"
@@ -119,6 +135,7 @@ def kill_message_parse(message):
                     "z": killed_loc[2]
                 }
 
+                kill_distance = get_kill_distance(killed_loc_result, killer_loc_result)
                 kill_sector = get_kill_sector(killer_loc_result['x'], killer_loc_result['y'])
 
                 is_event_kill = "(victim participating in game event)" in message
@@ -126,11 +143,10 @@ def kill_message_parse(message):
                 return {
                     "date": date,
                     "killed": killed,
-                    "killed_loc": killed_loc_result,
                     "killer": killer,
-                    "killer_loc": killer_loc_result,
-                    "is_event_kill": is_event_kill,
                     "kill_sector": kill_sector,
+                    'kill_distance': kill_distance,
+                    "is_event_kill": is_event_kill,
                 }
 
     except Exception:

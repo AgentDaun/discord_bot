@@ -17,7 +17,7 @@ def create_chat_message_template(text, author, date):
     return embed
 
 
-def create_kill_message_template(slim, killer, killed, date, killed_loc=None, killer_loc=None, kill_sector=None):
+def create_kill_message_template(killer, killed, date, kill_sector=None, kill_distance=None):
     date_result = datetime.strptime(date, '%Y.%m.%d-%H.%M.%S')
     embed = discord.Embed(title="Совершил убийство",
                           colour=discord.Colour(0xdd0016),
@@ -29,19 +29,19 @@ def create_kill_message_template(slim, killer, killed, date, killed_loc=None, ki
                      icon_url="https://scumfree.ru/wp-content/uploads/2019/09/favicon-400x400.png")
     embed.set_footer(text="SCUMFREE.RU", icon_url="http://s1.iconbird.com/ico/2013/9/440/w128h1281380212083target.png")
 
-    if killer_loc:
+    if kill_sector:
         embed.add_field(name="Дистанция",
-                        value=f"{killer_loc} {killed_loc}",
+                        value=f"{kill_distance} м.",
                         inline=True)
         embed.add_field(name="Сектор",
                         value=kill_sector['sector_letter'] + kill_sector['sector_number'],
-                        einline=True)
+                        inline=True)
     else:
         embed.add_field(name="Дистанция",
                         value=f"не более 10 метров",
                         inline=True)
         embed.add_field(name="Сектор",
                         value=f"Закрытая информация",
-                        einline=True)
+                        inline=True)
 
     return embed
