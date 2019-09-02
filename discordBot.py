@@ -111,10 +111,10 @@ async def on_ready():
     print(bot.user.id)
     print('------')
 
-    # onlineChannel = bot.get_channel(595878933652701204)
-    # worldRankChannel = bot.get_channel(595878994969231363)
-    onlineChannel = bot.get_channel(595899795550371840)
-    worldRankChannel = bot.get_channel(595899869898473472)
+    onlineChannel = bot.get_channel(595878933652701204)
+    worldRankChannel = bot.get_channel(595878994969231363)
+    # onlineChannel = bot.get_channel(595899795550371840)
+    # worldRankChannel = bot.get_channel(595899869898473472)
     while True:
         info = get_server_info()['attributes']
         online = info['players']
