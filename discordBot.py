@@ -75,7 +75,7 @@ async def check_new_messages():
                 for message_raw in kill_msgs:
                     message = kill_message_parse(message_raw)
                     if message:
-                        if message.get('kill_sector', 0):
+                        if message.get('kill_sector', False):
 
                             killed = message['killed']
                             killer = message['killer']
