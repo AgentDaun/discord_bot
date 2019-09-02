@@ -2,23 +2,15 @@
 import traceback
 
 from discord.ext import commands
-import discord
-from datetime import datetime
 
 import asyncio
 
 from apiBattle import get_server_info
-from messages_templates import *
+from messages_templates import create_chat_message_template, create_kill_message_template
 from chatparser.messages_parser import chat_message_parse, kill_message_parse
 from chatparser.scumlogs import read_logs
 
 description = '''not used yet'''
-
-# ``` - Эти палочки нужны для стиля текста
-# \n - Перенос строки
-
-import logging
-import sys
 
 # root = logging.getLogger()
 # root.setLevel(logging.DEBUG)
@@ -28,6 +20,9 @@ import sys
 # formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 # handler.setFormatter(formatter)
 # root.addHandler(handler)
+
+# ``` - Эти палочки нужны для стиля текста
+# \n - Перенос строки
 
 
 # Текст команды settings
@@ -52,6 +47,7 @@ TEXT_ON_WORLD_RANK_CHANNEL = "Мировой ранг: "
 bot = commands.Bot(command_prefix=COMMAND_PREFIX, description=description)
 bot.remove_command('help')
 
+
 async def check_new_messages():
     chat_messages_channel = bot.get_channel(617040424846229504)
     kill_messages_channel = bot.get_channel(617040494593179840)
@@ -64,35 +60,36 @@ async def check_new_messages():
                 for message_raw in chat_msgs:
                     message = chat_message_parse(message_raw)
                     if message:
-                        text= message['text']
+                        text = message['text']
                         author = message['author']
                         date = message['date']
                         ready_message = create_chat_message_template(text=text,
-                                                                    author=author,
-                                                                    date=date)
+                                                                     author=author,
+                                                                     date=date)
                         await chat_messages_channel.send(embed=ready_message)
             if kill_msgs:
                 # print(kill_msgs)
                 for message_raw in kill_msgs:
                     message = kill_message_parse(message_raw)
                     print(message)
-                    if message: 
+                    if message:
                         date = message['date']
                         killer = message['killer']
                         killer_loc = message['killer_loc']
                         killed = message['killed']
                         killed_loc = message['killed_loc']
                         ready_message = create_kill_message_template(killer=killer,
-                                                                    killer_loc=killer_loc,
-                                                                    killed=killed,
-                                                                    killed_loc=killed_loc,
-                                                                    date=date)
+                                                                     killer_loc=killer_loc,
+                                                                     killed=killed,
+                                                                     killed_loc=killed_loc,
+                                                                     date=date)
                         await kill_messages_channel.send(embed=ready_message)
         return True
-    except Exception as e:
+    except Exception:
         print(traceback.format_exc())
         await asyncio.sleep(15)
         return False
+
 
 @bot.event
 async def on_ready():
@@ -119,9 +116,6 @@ async def on_ready():
         else:
             print("Last messaged dropped into void?")
         await asyncio.sleep(10)
-        
-
-                
 
 
 # @bot.command()
