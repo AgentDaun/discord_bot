@@ -1,4 +1,4 @@
-
+import traceback
 
 def chat_message_parse(message):
     try:
@@ -25,13 +25,13 @@ def chat_message_parse(message):
                 "chat_type": message_chat_type,
                 "text": message_text
             }
-    except Exception as e:
+    except Exception:
+        print(traceback.format_exc())
         return None
 
 
 def strip_all(list_member):
     return list_member.strip()
-
 
 
 def kill_message_parse(message):
@@ -48,7 +48,7 @@ def kill_message_parse(message):
             if is_ok: 
                 date = splited_message[0]
                 killed_killer_loc = splited_message[2]
-                
+
                 killed_raw = killed_killer_loc.split(",")[0]
                 killed_id_starts_from = killed_raw.rfind("(")
                 killed = killed_raw[:killed_id_starts_from].strip()
@@ -58,7 +58,7 @@ def kill_message_parse(message):
                     return None
                 killer_id_starts_from = killer_raw.rfind("(")
                 killer = killer_raw[:killer_id_starts_from].strip()
-                
+
                 killer_loc_raw = splited_message[4] 
                 killer_loc = killer_loc_raw.split(',')[:3]
                 killer_loc = list(map(strip_all, killer_loc))    
@@ -88,8 +88,6 @@ def kill_message_parse(message):
                     "killer_loc": killer_loc_result,
                     "is_event_kill": is_event_kill
                 }
-    except Exception as e:
+    except Exception:
+        print(traceback.format_exc())
         return None
-
-# asd = kill_message_parse("2019.08.31-10.33.56: Died: Valkiria (76561198987454322), Killer: GRIDDiK89RUS (76561198075364206) S[KillerLoc: -383796.47, 205903.17, 61990.25, VictimLoc: -380882.63, 208061.80, 64282.17] C[KillerLoc: -383796.47, 205903.17, 61990.25, VictimLoc: -380882.63, 208061.80, 64282.17]")
-# print(asd)

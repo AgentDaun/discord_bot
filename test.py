@@ -1,4 +1,6 @@
+import traceback
 
-asd = ['']
-if asd:
-    print('asd')
+try:
+    a = 2 / 0
+except Exception as e:
+    print(traceback.format_exception_only())

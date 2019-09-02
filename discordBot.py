@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import traceback
+
 from discord.ext import commands
 import discord
 from datetime import datetime
@@ -65,7 +67,9 @@ async def check_new_messages():
                         text= message['text']
                         author = message['author']
                         date = message['date']
-                        ready_message = create_chat_message_template(text=text, author=author, date=date)
+                        ready_message = create_chat_message_template(text=text,
+                                                                    author=author,
+                                                                    date=date)
                         await chat_messages_channel.send(embed=ready_message)
             if kill_msgs:
                 # print(kill_msgs)
@@ -86,10 +90,9 @@ async def check_new_messages():
                         await kill_messages_channel.send(embed=ready_message)
         return True
     except Exception as e:
-        print(sys._getframe().f_code.co_name + " @ Caught exception").center(50) + '\n' + (str(e).decode('utf8') + '. line: ' + str(sys.exc_info()[2].tb_lineno)).center(50)
-        print(f"2. {e}")
-        return False
+        print(traceback.format_exc())
         await asyncio.sleep(15)
+        return False
 
 @bot.event
 async def on_ready():
@@ -109,10 +112,12 @@ async def on_ready():
         rank = info['rank']
         await onlineChannel.edit(name="{}{}/{}".format(TEXT_ON_ONLINE_CHANNEL, online, max_online))
         await worldRankChannel.edit(name="{}#{}".format(TEXT_ON_WORLD_RANK_CHANNEL, rank))
-        try:
-            await check_new_messages()
-        except:
-            await asyncio.sleep(30)
+
+        new_messages_confirm = await check_new_messages()
+        if new_messages_confirm:
+            print("Confirmed New")
+        else:
+            print("Last messaged dropped into void?")
         await asyncio.sleep(10)
         
 
