@@ -113,6 +113,7 @@ def kill_message_parse(message):
                 # if no coords in message
                 if len(splited_message) < 5:
                     return {
+                        "slim": True,
                         "is_event_kill": is_event_kill,
                         "killer": killer,
                         "killed": killed,
@@ -142,6 +143,7 @@ def kill_message_parse(message):
                 kill_sector = get_kill_sector(killer_loc_result['x'], killer_loc_result['y'])
 
                 return {
+                    "slim": False,
                     "date": date,
                     "killed": killed,
                     "killer": killer,

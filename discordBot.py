@@ -75,7 +75,7 @@ async def check_new_messages():
                 for message_raw in kill_msgs:
                     message = kill_message_parse(message_raw)
                     if message:
-                        if message.get('kill_sector', False):
+                        if message['slim'] and not message['is_event_kill']
 
                             killed = message['killed']
                             killer = message['killer']
@@ -84,7 +84,7 @@ async def check_new_messages():
                             ready_message = create_kill_message_template(date=date,
                                                                          killer=killer,
                                                                          killed=killed)
-                        if not message["is_event_kill"]:
+                        if not message["is_event_kill"] and not message['slim']:
                             date = message['date']
                             killer = message['killer']
                             killed = message['killed']
