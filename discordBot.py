@@ -127,7 +127,7 @@ async def on_ready():
         if new_messages_confirm:
             print("Confirmed New")
         else:
-            print("Last messaged dropped into void?")
+            print("Last message dropped into void?")
         await asyncio.sleep(10)
 
 
