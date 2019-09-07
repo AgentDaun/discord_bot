@@ -109,7 +109,7 @@ def kill_message_parse(message):
 
                 is_event_kill = "(victim participating in game event)" in message
                 # if no coords in message
-                if len(splited_message) <= 5 and "Weapon" in killer_raw:
+                if len(splited_message) <= 5 or len(splited_message) == 3 and "Weapon" in killer_raw:
                     return {
                         "slim": True,
                         "is_event_kill": is_event_kill,
@@ -117,7 +117,6 @@ def kill_message_parse(message):
                         "killed": killed,
                         "date": date
                     }
-
                 killer_loc_raw = splited_message[4]
                 killer_loc = killer_loc_raw.split(',')[:3]
                 killer_loc = list(map(strip_all, killer_loc))
@@ -153,6 +152,3 @@ def kill_message_parse(message):
     except Exception:
         print(traceback.format_exc())
         return None
-
-asd = kill_message_parse("2019.08.21-15.38.57: Died: Kobiha (76561198817569216), Killer: ТЕКИЛА (76561198874702974) Weapon:  (killer participating in game event) (victim participating in game event)")
-print(asd)
