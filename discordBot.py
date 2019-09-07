@@ -50,10 +50,10 @@ bot.remove_command('help')
 
 
 async def check_new_messages():
-    chat_messages_channel = bot.get_channel(595899795550371840)
-    kill_messages_channel = bot.get_channel(595899869898473472)
-    # chat_messages_channel = bot.get_channel(617040424846229504)
-    # kill_messages_channel = bot.get_channel(617040494593179840)
+    # chat_messages_channel = bot.get_channel(595899795550371840)
+    # kill_messages_channel = bot.get_channel(595899869898473472)
+    chat_messages_channel = bot.get_channel(617040424846229504)
+    kill_messages_channel = bot.get_channel(617040494593179840)
     try:
         messages, result = await read_logs()
         if result:
@@ -111,10 +111,10 @@ async def on_ready():
     print(bot.user.id)
     print('------')
 
-    # onlineChannel = bot.get_channel(595878933652701204)
-    # worldRankChannel = bot.get_channel(595878994969231363)
-    onlineChannel = bot.get_channel(595899795550371840)
-    worldRankChannel = bot.get_channel(595899869898473472)
+    onlineChannel = bot.get_channel(595878933652701204)
+    worldRankChannel = bot.get_channel(595878994969231363)
+    # onlineChannel = bot.get_channel(595899795550371840)
+    # worldRankChannel = bot.get_channel(595899869898473472)
     while True:
         info = get_server_info()['attributes']
         online = info['players']
