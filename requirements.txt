@@ -7,7 +7,7 @@ attrs==19.1.0
 autopep8==1.4.4
 beautifulsoup4==4.8.0
 bs4==0.0.1
-certifi==2019.6.16
+certifi==2022.12.7
 chardet==3.0.4
 discord.py==1.2.3
 entrypoints==0.3
